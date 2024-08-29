@@ -1,0 +1,13 @@
+services:
+  sideshow-django-dev:
+    build:
+      context: ../../
+      dockerfile: Dockerfile
+      target: dev
+    image: gitlab.com/boundcorp/sideshow/dev:latest
+  sideshow-django:
+    build:
+      context: ../../
+      dockerfile: Dockerfile
+      target: release-backend
+    image: gitlab.com/boundcorp/sideshow/release-backend:latest

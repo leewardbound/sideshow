@@ -1,0 +1,15 @@
+{
+    "files.exclude": {
+        "**/.venv": true,
+        "**/.pytest_cache": true,
+        "**/node_modules": true,
+        "**/dist": true,
+        "**/*.log": true,
+        "**/__pycache__": true,
+        "**/_static": true,
+        "**/_server": true,
+        "**/_metadata": true,
+        "**/_ssr": true,
+        "**/staticfiles": true
+    }
+}
