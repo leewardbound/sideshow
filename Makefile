@@ -4,6 +4,7 @@ export PIPENV_VERBOSITY=-1
 dev:
 	make deps
 	bin/dc up -d
+	bin/dc ps
 
 deps:
 	make venv
@@ -21,7 +22,7 @@ docker_build_clean:
 	bin/dc build --no-cache
 
 generate:
-	python3 sideshow/cli.py generate-enums
+	.venv/bin/python3 sideshow/cli.py generate-enums
 
 format:
 	make ruff_format
@@ -32,7 +33,7 @@ format:
 
 venv:
 	uv venv .venv
-	uv pip install -e .
+	. .venv/bin/activate ; uv pip install -e .
 
 precommit:
 	make format

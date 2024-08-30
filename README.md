@@ -8,6 +8,11 @@ We've setup a few quality-of-life utilities in the `bin/` folder to make running
 
 For convenience, you can find aliases for common tasks in the `Makefile`.
 
+New here?
+```
+direnv allow && make dev
+```
+
 ### Direnv and .envrc
 
 It is highly recommended to install the [direnv](https://direnv.net/) utility. This will automatically load the
@@ -15,10 +20,10 @@ environment variables in the `.envrc` file when you `cd` into the project direct
 
 ### Installing Dependencies
 
-`make deps` will run `bin/setup.dev`, which:
+`make deps` will:
 
 + Creates a new virtualenv (probably in `./.venv/`)
-+ Installs the python dependencies from `pyproject.toml` (and updates `requirements.freeze.txt`)
++ Installs the python dependencies from `pyproject.toml` 
 + (in `sideshow/views/`) Installs the frontend npm dependencies from `package.json` using `yarn`
 + Builds development docker containers for the backend
 + Launches the docker containers
@@ -41,25 +46,24 @@ Now you can run `dc ps` to see the running containers:
 $ dc ps
 
 NAME                 SERVICE             CREATED             STATUS              PORTS
-sideshow-backend-1   backend             3 seconds ago       Up 1 second         8000/tcp
-sideshow-ingress-1   ingress             2 seconds ago       Up 1 second         443/tcp, 2019/tcp, 0.0.0.0:3388->80/tcp, :::3388->80/tcp
+sideshow-backend-1   backend             3 seconds ago       Up 1 second         8833/tcp
 sideshow-psql-1      psql                3 seconds ago       Up 2 seconds        5432/tcp
 ```
 
 Great! Now just run `bin/browser` to open the application in your browser
-(or click here http://localhost:3388)
+(or click here http://localhost:8833)
 
-### Why Docker and Pipenv Together?
+### Why Docker and virtualenv Together?
 
-It may seem redundant to use both Docker devcontainers and local Pipenv, but there are a few reasons why we do this:
+It may seem redundant to use both Docker devcontainers and local virtualenv, but there are a few reasons why we do this:
 
-+ For many developer commands, starting the application with a local `Pipenv` is much faster than using the devcontainer
-+ However the local `Pipenv` is not able to connect to `psql` or `redis` docker containers (without some extra setup,
++ For many developer commands, starting the application with a local `virtualenv` is much faster than using the devcontainer
++ However the local `virtualenv` is not able to connect to `psql` or `redis` docker containers (without some extra setup,
   not performed here)
 + The devcontainer is able to connect to the `psql` and `redis` containers, but is slower to start
-+ Many external commands (such as `flake8` and `manage.py test`) can be run from the local `Pipenv` without starting the
++ Many external commands (such as `flake8` and `manage.py test`) can be run from the local `virtualenv` without starting the
   devcontainer
-+ The entire git precommit hook must be run from the local `Pipenv` (because `docker compose exec` does not work in a
++ The entire git precommit hook must be run from the local `virtualenv` (because `docker compose exec` does not work in a
   git hook due to TTY issues)
 
 ### .envrc Variables Explained

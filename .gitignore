@@ -2,8 +2,8 @@
 .DS_Store
 
 # Exclude secrets
-.env
-.env.*
+# We commit .env but not .env.local
+.env.local
 !.env.example
 
 # General Javascript excludes
@@ -141,7 +141,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+.env.local
 .venv
 env/
 venv/

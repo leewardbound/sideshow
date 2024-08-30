@@ -42,5 +42,5 @@ def get_token_day_data(token_address: str, day: date | str):
     if isinstance(day, str):
         day = datetime.strptime(day, '%Y-%m-%d').date()
     start_timestamp = int(day.strftime('%s'))
-    end_timestamp = start_timestamp + 24 * 60 * 60
+    end_timestamp = start_timestamp + 24 * 60 * 60 - 1
     return get_token_hour_data(token_address, start_timestamp, end_timestamp)
