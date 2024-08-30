@@ -1,2 +1,2 @@
 #!/bin/bash
-bin/dj python manage.py $*
+bin/dj python sideshow/manage.py $*

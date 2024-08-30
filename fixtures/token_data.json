@@ -1,0 +1,23 @@
+{
+    "WBTC": {
+        "decimals": "8",
+        "name": "Wrapped BTC",
+        "symbol": "WBTC",
+        "totalSupply": "18240",
+        "volumeUSD": "131571045361.3220641172720283464987"
+    },
+    "SHIB": {
+        "decimals": "18",
+        "name": "SHIBA INU",
+        "symbol": "SHIB",
+        "totalSupply": "18240",
+        "volumeUSD": "4391636732.797895819432987310270198"
+    },
+    "GNO": {
+        "decimals": "18",
+        "name": "Gnosis Token",
+        "symbol": "GNO",
+        "totalSupply": "28240",
+        "volumeUSD": "521606625.1226475281360519688093302"
+    }
+}

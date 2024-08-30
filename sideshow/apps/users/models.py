@@ -2,14 +2,14 @@ from django.contrib.auth.models import AbstractUser
 from django.core import signing
 from django.db import models
 
-from sideshow.utils.models import TimestampMixin, MediumIDMixin
+from sideshow.utils.models import TimestampMixin
 from sideshow.utils.email import MailableEntityMixin
 
 class AccountTypes(models.TextChoices):
     STAFF = "staff", "Staff"
     USER = "user", "User"
 
-class User(TimestampMixin, MediumIDMixin, AbstractUser, MailableEntityMixin):
+class User(TimestampMixin, AbstractUser, MailableEntityMixin):
     account_type = models.CharField(max_length=50, choices=AccountTypes.choices, default=AccountTypes.STAFF)
 
     def __str__(self):

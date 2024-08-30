@@ -30,6 +30,14 @@ services:
     environment:
       - SERVICE=backend
 
+  token_data:
+    <<: *common-django-settings
+    entrypoint: ["/app/infra/dev/entrypoint.sh"]
+    command: ["python3", "sideshow/manage.py", "runscript", "token_data"]
+    environment:
+      - SERVICE=backend
+      - KEEP_POLLING=1
+
   ############################################################
   # 3rd Party Services
   ############################################################

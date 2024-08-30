@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     "django_filters",
     "django_extensions",
     "sideshow.apps.users",
+    "sideshow.apps.tokens",
 ]
 
 SITE_ROOT = PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
