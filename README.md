@@ -1,6 +1,32 @@
-# sideshow
+# sideshow - a crypto price aggregator
 
-> Copyright BoundCorp 2023
+> Copyright BoundCorp 2024
+
+## Introduction
+Hi, I'm Leeward, thanks for stopping by!
+
+This project is my interview homework for Rodeo. It's python/django and a new framework
+called [`mountaineer`](https://github.com/piercefreeman/mountaineer), which is a FastAPI handler
+that provides SSR tsx rendering via rust bindings.
+
+As an earnest disclaimer, I chose to use Mountaineer because it was an opportunity to put mountaineer to the test, as I've been interested in the project for some time, and haven't evaluated a project of this size yet. This caused some unexpected issues, which I mostly managed to work through (RIP SSE), but I was able to complete all the requirements of the homework in about 4 hours (1h50m for initial requirements, ~1h for extras, ~1h for docs and devops).
+
+- [x] Pull latest prices from thegraph api [tokens/graphapi.py](sideshow/apps/tokens/graphapi.py)
+- [x] Store the data in a postgres database [tokens/models.py](sideshow/apps/tokens/models.py)
+- [x] Long running process for updating token prices [scripts/token_data.py](sideshow/scripts/token_data.py) and [infra/dev/compose.yml](infra/dev/compose.yml)
+- [x] Single command to start everything `make dev` or `dcleanup` [Makefile](Makefile)
+- [x] FastAPI endpoint for pulling token prices [pages/index/controller.py](sideshow/views/src/pages/index/controller.py)
+  ```
+  curl -X POST 'http://localhost:8833/internal/api/home_controller/get_chart_data?token_address_or_name=WBTC&time_unit_in_hours=4'
+  ```
+- [x] Create a superuser (`djmanage createsuperuser`) and browse pricing data in the admin UI at `http://localhost:8833/mgmt` [tokens/admin.py](sideshow/apps/tokens/admin.py)
+- [x] Tailwind frontend for viewing the tokens and latest prices [pages/index/controller.py](sideshow/views/src/pages/index/controller.py)
+![Tailwind UI Image](docs/image.png)
+- [ ] SSE realtime frontend updates, I had some mountaineer errors that I couldn't resolve in time, possibly related to docker port mapping?
+- [ ] Frontend Charts - One of my favorite things about mountaineer is how easy it is to add SSR charts and stream data into them, but I spent more time than I wanted on SSE, and I gave up on this
+
+* **A Note on the Chart Data API:** It's of a slightly incorrect shape. Instead of a 3D array, the top level is a dictionary object with keys: `open`, `close`, `high`, `low`, and `priceUSD`. The values are otherwise to spec; internally, the get_chart_data method returns the specified 3D array shape, but mountaineer wound up getting in the way of serializing this cleanly. I could have added a redundant django-rest-framework or FastAPI endpoint, not using mountaineer, just to have a fully conformant API method, but I felt it violated the spirit of the requirements - I want to provide clean code and clear communication, so leaving a note here is a better option.
+
 
 ## Running the Dev Environment
 
@@ -8,7 +34,7 @@ We've setup a few quality-of-life utilities in the `bin/` folder to make running
 
 For convenience, you can find aliases for common tasks in the `Makefile`.
 
-New here?
+New here? Just cloned the project? This will get you started:
 ```
 direnv allow && make dev
 ```
